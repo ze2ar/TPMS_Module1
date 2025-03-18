@@ -62,15 +62,19 @@ def probability_of_condition(
         condition_y = condition_func(x)
 
         if sign == ">":
-            if condition_y < end:
-                return max(0, end - condition_y)
-            else:
+            if condition_y >= end:
                 return 0
+            if condition_y <= start:
+                return end - start
+            return end - condition_y
+
         elif sign == "<":
-            if condition_y > start:
-                return max(0, condition_y - start)
-            else:
+            if condition_y <= start:
                 return 0
+            if condition_y >= end:
+                return end - start
+            return condition_y - start
+
         else:
             raise ValueError("Неизвестный знак сравнения")
 
