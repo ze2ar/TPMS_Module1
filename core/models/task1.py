@@ -1,6 +1,6 @@
 from typing import List
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, conlist, PositiveInt
 
 
 class WordRequest(BaseModel):
@@ -93,3 +93,16 @@ class CommitteeRequest(BaseModel):
 
     people_count: int = Field(ge=0, description="Общее количество людей", examples=[9])
     committee_size: int = Field(ge=0, description="Размер комиссии", examples=[3])
+
+
+class GroupPartitionsRequest(BaseModel):
+    """
+    Модель запроса на разбиение множества на группы заданных размеров.
+    """
+
+    n: int = Field(description="Общее количество элементов", examples=[7])
+    group_sizes: conlist(PositiveInt, min_length=1) = Field(
+        description="Список размеров групп (целые положительные числа). "
+        "Сумма всех размеров должна быть равна n.",
+        examples=[1, 2, 3],
+    )

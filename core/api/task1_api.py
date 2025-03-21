@@ -131,3 +131,20 @@ def api_count_anagrams(request: AnagramRequest):
 )
 def api_count_committee(request: CommitteeRequest):
     return combinations(n=request.people_count, k=request.committee_size)
+
+
+@router.post(
+    "/number_of_group_partitions",
+    response_model=int,
+    summary="Подсчет количества способов разбиения множества на группы заданных размеров",
+    description="""
+    Подсчитывает количество способов разбиения множества на группы заданных размеров.
+
+    📝 Формула: n! / (n1! * n2! * ... * nk!)
+
+    📚 Пример: Есть 15 элементов, нужно разбить на группы размеров [7, 4, 4]. Ответ: 450450
+    """,
+    response_description="Количество способов разбиения множества",
+)
+def api_group_partitions(request: GroupPartitionsRequest) -> int:
+    return group_partitions(n=request.n, group_sizes=request.group_sizes)

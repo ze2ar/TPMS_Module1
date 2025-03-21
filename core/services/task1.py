@@ -101,3 +101,30 @@ def count_anagrams(word: str) -> int:
             denominator *= math.factorial(count)
 
     return numerator // denominator
+
+
+def group_partitions(n: int, group_sizes: List[int]) -> int:
+    """
+    Вычисляет количество способов разбиения множества из n элементов на группы заданных размеров.
+
+    📝 Формула: n! / (n1! * n2! * ... * nk!)
+
+    :param n: Общее количество элементов
+    :param group_sizes: Список размеров групп
+    :return: Количество способов разбиения
+    :raises ValueError: Если сумма размеров групп не равна n
+    """
+    if not group_sizes:
+        raise ValueError("Список размеров групп не может быть пустым.")
+
+    if sum(group_sizes) != n:
+        raise ValueError(
+            f"Сумма размеров групп ({sum(group_sizes)}) не равна общему количеству элементов ({n})."
+        )
+
+    numerator = math.factorial(n)
+    denominator = 1
+    for size in group_sizes:
+        denominator *= math.factorial(size)
+
+    return numerator // denominator
