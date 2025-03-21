@@ -1,14 +1,27 @@
 import math
 
 
-def permutations(n: int, k: int) -> int:
+def permutations(n: int) -> int:
     """
-    Вычисляет количество перестановок из n по k.
+    Вычисляет количество перестановок из n элементов.
 
-    📝 Формула: P(n, k) = n! / (n - k)!
+    📝 Формула: P(n) = n!
+    :param n: Общее количество элементов
+    :return: Количество перестановок
+    """
+    if n < 0:
+        return 0
+    return math.factorial(n)
+
+
+def arrangements(n: int, k: int) -> int:
+    """
+    Вычисляет количество размещений из n по k.
+
+    📝 Формула: A(n, k) = n! / (n - k)!
     :param n: Общее количество элементов
     :param k: Количество выбираемых элементов
-    :return: Количество перестановок
+    :return: Количество размещений
     """
     if k > n or n < 0 or k < 0:
         return 0
@@ -26,7 +39,7 @@ def combinations(n: int, k: int) -> int:
     """
     if k > n or n < 0 or k < 0:
         return 0
-    return math.factorial(n) // (math.factorial(k) * math.factorial(n - k))
+    return math.comb(n, k)
 
 
 def combinations_with_repetition(n: int, k: int) -> int:
@@ -38,6 +51,6 @@ def combinations_with_repetition(n: int, k: int) -> int:
     :param k: Количество выбираемых элементов
     :return: Количество сочетаний с повторениями
     """
-    if n <= 0 or k < 0:
+    if n < 0 or k <= 0:
         return 0
-    return math.factorial(n + k - 1) // (math.factorial(k) * math.factorial(n - 1))
+    return math.comb(k + n - 1, n)

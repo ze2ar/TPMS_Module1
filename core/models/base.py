@@ -3,7 +3,15 @@ from pydantic import BaseModel, Field
 
 class PermutationsRequest(BaseModel):
     """
-    Модель для расчета числа перестановок (размещений).
+    Модель для расчета числа перестановок.
+    """
+
+    n: int = Field(ge=0, description="Общее количество элементов", examples=[5])
+
+
+class ArrangementsRequest(BaseModel):
+    """
+    Модель для расчета числа размещений.
     """
 
     n: int = Field(ge=0, description="Общее количество элементов", examples=[5])

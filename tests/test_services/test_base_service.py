@@ -1,51 +1,76 @@
+import pytest
 from math import factorial
 
-from core.services.base import permutations, combinations, combinations_with_repetition
+from core.services.base import (
+    permutations,
+    arrangements,
+    combinations,
+    combinations_with_repetition,
+)
 
 
-# TODO Настроить логгер
-def test_permutations_basic():
-    # Проверяем количество перестановок из 5 по 3.
-    assert permutations(5, 3) == 60
-    # Проверяем случай, когда выбираются все элементы.
-    assert permutations(4, 4) == factorial(4)
-    # Проверяем выбор нуля элементов.
-    assert permutations(10, 0) == 1
-
-    # Проверка случая, когда k > n.
-    assert permutations(3, 5) == 0
-    # Проверка отрицательного значения n.
-    assert permutations(-1, 2) == 0
-    # Проверка отрицательного значения k.
-    assert permutations(5, -2) == 0
+@pytest.mark.parametrize(
+    "n, expected",
+    [(1, 1), (2, 2), (3, 6), (4, 24), (5, 120)],
+)
+def test_permutations(n, expected):
+    assert permutations(n=n) == expected
 
 
-def test_combinations_basic():
-    # Проверяем количество сочетаний из 5 по 3.
-    assert combinations(5, 3) == 10
-    # Сочетания из n по n всегда 1 (выбираем всё множество).
-    assert combinations(4, 4) == 1
-    # Сочетания из n по 0 — всегда 1 (выбираем пустое множество).
-    assert combinations(10, 0) == 1
+@pytest.mark.parametrize(
+    "n, k, expected",
+    [
+        (5, 3, 60),
+        (4, 4, 24),
+        (10, 0, 1),
+        # Wrong params
+        (3, 5, 0),
+        (-1, 2, 0),
+        (5, -2, 0),
+    ],
+)
+def test_arrangements(n, k, expected):
+    assert arrangements(n=n, k=k) == expected
 
-    # k > n — невозможно выбрать больше элементов, чем доступно.
-    assert combinations(3, 5) == 0
-    # n отрицательное — невозможный случай.
-    assert combinations(-1, 2) == 0
-    # k отрицательное — нельзя выбрать отрицательное количество элементов.
-    assert combinations(5, -2) == 0
+
+@pytest.mark.parametrize(
+    "n, k, expected",
+    [
+        (5, 3, 10),
+        (4, 4, 1),
+        (10, 0, 1),
+        # Wrong params
+        (3, 5, 0),
+        (-1, 2, 0),
+        (5, -2, 0),
+        # Test (комиссия)
+        (9, 3, 84),
+        (9, 5, 126),
+        (7, 4, 35),
+        (8, 4, 70),
+        (6, 3, 20),
+    ],
+)
+def test_combinations(n, k, expected):
+    assert combinations(n=n, k=k) == expected
 
 
-def test_combinations_with_repetition_basic():
-    # Проверяем количество сочетаний с повторениями из 5 по 3.
-    assert combinations_with_repetition(5, 3) == 35
-    # Сочетания с повторениями, когда выбираем 0 элементов — всегда 1.
-    assert combinations_with_repetition(4, 0) == 1
-    # Если есть 1 элемент, а выбираем 3 с повторениями — возможна только одна комбинация.
-    assert combinations_with_repetition(1, 3) == 1
-
-    # n <= 0 — невозможный случай для повторений.
-    assert combinations_with_repetition(0, 3) == 0
-    assert combinations_with_repetition(-1, 2) == 0
-    # k < 0 — нельзя выбрать отрицательное количество элементов.
-    assert combinations_with_repetition(5, -2) == 0
+@pytest.mark.parametrize(
+    "n, k, expected",
+    [
+        (3, 5, 35),
+        (0, 4, 1),
+        (3, 1, 1),
+        # Wrong params
+        (3, 0, 0),
+        (-1, 2, 0),
+        (2, -1, 0),
+        # Test (букеты)
+        (11, 5, 1365),
+        (11, 3, 78),
+        (7, 4, 120),
+        (7, 3, 36),
+    ],
+)
+def test_combinations_with_repetition(n, k, expected):
+    assert combinations_with_repetition(n=n, k=k) == expected

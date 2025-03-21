@@ -2,7 +2,7 @@ import math
 from collections import Counter
 from typing import List
 
-from core.services import permutations, combinations
+from core.services import arrangements, combinations
 
 
 def count_words(word: str, length: int) -> int:
@@ -20,7 +20,7 @@ def count_words(word: str, length: int) -> int:
     n = len(unique_letters)
     k = length
 
-    return permutations(n, k)
+    return arrangements(n, k)
 
 
 def count_same_author_selection(
