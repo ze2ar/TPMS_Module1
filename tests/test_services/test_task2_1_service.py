@@ -1,7 +1,6 @@
 import pytest
 
 from core.services import hypergeometric_probability, exam_pass_probability
-from scipy.stats import hypergeom
 
 
 @pytest.mark.parametrize(
@@ -24,11 +23,6 @@ def test_hypergeometric_probability(
     result = hypergeometric_probability(
         total_population, success_population, sample_size, successes_in_sample
     )
-
-    expected2 = hypergeom.pmf(
-        successes_in_sample, total_population, success_population, sample_size
-    )
-    print(result, expected2)
 
     assert round(result, 3) == expected
 

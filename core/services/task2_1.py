@@ -1,4 +1,4 @@
-from core.services import combinations
+from scipy.stats import hypergeom
 
 
 def hypergeometric_probability(
@@ -18,13 +18,9 @@ def hypergeometric_probability(
     :param successes_in_sample: Число успешных исходов в выборке (k)
     :return: Вероятность получить successes_in_sample успешных исходов
     """
-    comb_successes = combinations(success_population, successes_in_sample)
-    comb_failures = combinations(
-        total_population - success_population, sample_size - successes_in_sample
+    return hypergeom.pmf(
+        successes_in_sample, total_population, success_population, sample_size
     )
-    comb_total = combinations(total_population, sample_size)
-
-    return (comb_successes * comb_failures) / comb_total
 
 
 def exam_pass_probability(
