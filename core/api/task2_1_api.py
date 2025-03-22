@@ -24,12 +24,13 @@ router = APIRouter(prefix="/task2_1", tags=["Task2_1"])
     response_description="Вероятность сдать экзамен (от 0 до 1).",
 )
 def api_exam_pass_probability(request: ExamProbabilityRequest):
-    return exam_pass_probability(
+    result = exam_pass_probability(
         total_questions=request.total_questions,
         known_questions=request.known_questions,
         questions_in_ticket=request.questions_in_ticket,
         min_correct_answers=request.min_correct_answers,
     )
+    return round(result, 3)
 
 
 @router.post(

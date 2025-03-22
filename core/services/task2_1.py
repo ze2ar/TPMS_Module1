@@ -54,4 +54,4 @@ def exam_pass_probability(
         )
         probability += prob_k
 
-    return round(probability, 3)
+    return probability

@@ -11,7 +11,7 @@ def permutations(n: int) -> int:
     """
     if n < 0:
         return 0
-    return math.factorial(n)
+    return math.perm(n)
 
 
 def arrangements(n: int, k: int) -> int:
@@ -25,7 +25,7 @@ def arrangements(n: int, k: int) -> int:
     """
     if k > n or n < 0 or k < 0:
         return 0
-    return math.factorial(n) // math.factorial(n - k)
+    return math.perm(n, k)
 
 
 def combinations(n: int, k: int) -> int:
