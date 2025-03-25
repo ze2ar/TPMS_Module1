@@ -100,9 +100,9 @@ class GroupPartitionsRequest(BaseModel):
     Модель запроса на разбиение множества на группы заданных размеров.
     """
 
-    n: int = Field(description="Общее количество элементов", examples=[7])
+    n: int = Field(description="Общее количество элементов", examples=[15])
     group_sizes: conlist(PositiveInt, min_length=1) = Field(
         description="Список размеров групп (целые положительные числа). "
         "Сумма всех размеров должна быть равна n.",
-        examples=[1, 2, 3],
+        examples=[[7, 4, 4]],
     )

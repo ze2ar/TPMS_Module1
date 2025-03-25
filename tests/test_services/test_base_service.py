@@ -1,5 +1,4 @@
 import pytest
-from math import factorial
 
 from core.services.base import (
     permutations,
@@ -70,6 +69,7 @@ def test_combinations(n, k, expected):
         (11, 3, 78),
         (7, 4, 120),
         (7, 3, 36),
+        (9, 4, 220),
     ],
 )
 def test_combinations_with_repetition(n, k, expected):

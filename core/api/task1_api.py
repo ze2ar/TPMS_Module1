@@ -97,7 +97,7 @@ def api_seating_arrangements(request: SeatingRequest):
 )
 def api_bouquet_combinations(request: BouquetRequest):
     return combinations_with_repetition(
-        n=request.flower_types, k=request.flowers_in_bouquet
+        n=request.flowers_in_bouquet, k=request.flower_types
     )
 
 
